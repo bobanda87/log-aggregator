@@ -18,10 +18,7 @@ trait JsonResponseTrait
      */
     protected function failedJsonResponse($error, $status = Response::HTTP_BAD_REQUEST): JsonResponse
     {
-        return response()->json([
-            'status' => $status,
-            'message' => $error
-        ]);
+        return response()->json($error, $status);
     }
 
     /**
@@ -31,9 +28,7 @@ trait JsonResponseTrait
      */
     protected function successJsonResponse($data): JsonResponse
     {
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $data
-        ]);
+        return response()->json($data, Response::HTTP_OK);
     }
+
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\LogAggregator;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -27,13 +26,4 @@ class LogAggregatorController extends Controller
         return view('logs/list', ['logs' => $logs]);
     }
 
-    /**
-     * @param Request $request
-     * @return LengthAwarePaginator
-     */
-    public function search(Request $request)
-    {
-        return LogAggregator::search($request->search)->paginate(self::PER_PAGE);
-        return view('logs/list', ['logs' => $logs]);
-    }
 }
