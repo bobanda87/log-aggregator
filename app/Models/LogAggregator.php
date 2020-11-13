@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 /**
  * Class LogAggregator
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class LogAggregator extends Model
 {
+    use Searchable;
+    
     protected $fillable = [
         'log',
     ];
