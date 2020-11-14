@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\LogAggregatorAPIController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/logs', [LogAggregatorAPIController::class, 'create']);
-Route::get('/logs', [LogAggregatorAPIController::class, 'index']);
-Route::get('/logs/search', [LogAggregatorAPIController::class, 'search']);
+Route::post('/sanctum/token', [LoginController::class, 'tokenAuthentication']);
+
+Route::middleware('auth:sanctum')->post('/logs', [LogAggregatorAPIController::class, 'create']);
+Route::middleware('auth:sanctum')->get('/logs', [LogAggregatorAPIController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/logs/search', [LogAggregatorAPIController::class, 'search']);
+
