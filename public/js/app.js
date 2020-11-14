@@ -1939,6 +1939,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 var auth = new _services_auth__WEBPACK_IMPORTED_MODULE_0__["default"]();
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1957,10 +1963,7 @@ var auth = new _services_auth__WEBPACK_IMPORTED_MODULE_0__["default"]();
 
       axios.get('/sanctum/csrf-cookie').then(function (response) {
         axios.post('/login', _this.formData).then(function (response) {
-          axios.post('/sanctum/token', _this.formData).then(function (response) {
-            console.log(response);
-            console.log(response.data);
-            alert("token response");
+          axios.post('/api/sanctum/token', _this.formData).then(function (response) {
             localStorage.setItem('token', response.data);
             window.location.href = '/home';
           })["catch"](function (error) {
@@ -2059,7 +2062,6 @@ var auth = new _services_auth__WEBPACK_IMPORTED_MODULE_1__["default"]();
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       axios.get("api/logs/search?search=" + this.search + "&page=" + page, this.getHeader()).then(function (response) {
-        console.log(response);
         _this2.logs = response.data;
       });
     },
@@ -2067,7 +2069,6 @@ var auth = new _services_auth__WEBPACK_IMPORTED_MODULE_1__["default"]();
       var _this3 = this;
 
       axios.get("api/logs/search?search=" + this.search, this.getHeader()).then(function (response) {
-        console.log(response);
         _this3.logs = response.data;
       });
     })
@@ -38280,6 +38281,8 @@ var render = function() {
           domProps: { value: _vm.csrfToken }
         }),
         _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
         _c("div", { staticClass: "form-group row" }, [
           _c(
             "label",
@@ -38350,12 +38353,24 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _vm._m(1)
       ]
     )
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("span", [
+          _vm._v("Demo user credentials are pre-populated for test purposes")
+        ])
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

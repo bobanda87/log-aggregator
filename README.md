@@ -42,7 +42,7 @@ curl -X POST http://127.0.0.1:8000/api/logs \
 
 ### Notice
 
-For the test purposes, I have left the registration open, so it is easier to register user and test the application.
+For the test purposes, I have created a test user.
 
 For the test purposes, the application is deployed on `http://128.199.62.163/`
 

@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Auth::routes([
+    'register' => false
+]);
 
 Route::middleware('auth:web')->get('/home', [HomeController::class, 'index']);
 Route::middleware('auth:web')->get('/', [HomeController::class, 'index']);

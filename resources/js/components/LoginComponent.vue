@@ -3,6 +3,12 @@
         <form action="#" @submit.prevent="handleLogin">
             <input type="hidden" :value="csrfToken" name="_token"/>
 
+            <div class="form-group row justify-content-center">
+                <div class="col-md-4">
+                    <span>Demo user credentials are pre-populated for test purposes</span>
+                </div>
+            </div>
+
             <div class="form-group row">
                 <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
@@ -38,8 +44,8 @@ export default {
         return {
             csrfToken: null,
             formData: {
-                email: '',
-                password: ''
+                email: 'demoUser@test.com',
+                password: 'SomePass123!'
             },
         }
     },
