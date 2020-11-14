@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(LogAggregatorSeeder::class);
+        $this->call(UserSeeder::class);
+
+        $this->call(LogAggregatorSeeder::class);
     }
 }
