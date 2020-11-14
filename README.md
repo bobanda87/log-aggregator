@@ -24,7 +24,7 @@ The UI is using VueJS for authentication and searching.
 In order to use the API methods, user must authenticate
 
 ```
-curl -X POST http://127.0.0.1:8000/api/sanctum/token \
+curl -X POST http://127.0.0.1:8000/sanctum/token \
 --header 'Content-Type: application/json' \
 --data-raw '{"email": "XXXXX@gmail.com", "password": "XXXXX"}'
 ```
