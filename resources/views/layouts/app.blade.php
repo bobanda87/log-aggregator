@@ -31,15 +31,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             @auth
                 <!-- Left Side Of Navbar -->
-                    <ul class="nav nav-sidebar">
-                        <li class="nav-item {{ (request()->is('home')) ? 'active' : '' }}">
-                            <a class="nav-link" href="/">Home</a>
-                        </li>
-
-                        <li class="nav-item {{ (request()->is('logs')) ? 'active' : '' }}">
-                            <a class="nav-link" href="/logs">Logs</a>
-                        </li>
-                    </ul>
+                <ul class="nav nav-sidebar">
+                    <li class="nav-item {{ (request()->is('home')) ? 'active' : '' }}">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                </ul>
             @endauth
 
             <!-- Right Side Of Navbar -->
