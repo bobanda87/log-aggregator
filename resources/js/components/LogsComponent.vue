@@ -36,6 +36,9 @@
 
 import _ from "lodash";
 
+import Auth from '../services/auth';
+const auth = new Auth();
+
 export default {
     data() {
         return {
@@ -44,24 +47,30 @@ export default {
         }
     },
     methods: {
+        getHeader() {
+            const config = {
+                headers: { Authorization: 'Bearer ' + auth.getToken() }
+            };
+
+            return config;
+        },
+
         fetchAllLogs() {
-            axios.get("api/logs").then( response => {
+            axios.get("api/logs", this.getHeader()).then( response => {
                 this.logs = response.data;
             });
         },
 
         fetchLogsByPage(page = 1) {
-            axios.get("api/logs/search?search=" + this.search + "&page=" + page)
+            axios.get("api/logs/search?search=" + this.search + "&page=" + page, this.getHeader())
                 .then((response) => {
-                    console.log(response);
                     this.logs = response.data;
                 });
         },
 
         searchLogs:_.debounce(function() {
-            axios.get("api/logs/search?search=" + this.search)
+            axios.get("api/logs/search?search=" + this.search, this.getHeader())
                 .then((response) => {
-                    console.log(response);
                     this.logs = response.data;
                 });
         }),

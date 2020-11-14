@@ -1,6 +1,8 @@
 <template>
     <div>
         <form action="#" @submit.prevent="handleLogin">
+            <input type="hidden" :value="csrfToken" name="_token"/>
+
             <div class="form-group row">
                 <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
@@ -34,18 +36,19 @@ const auth = new Auth();
 export default {
     data() {
         return {
+            csrfToken: null,
             formData: {
                 email: '',
                 password: ''
-            }
+            },
         }
     },
     methods: {
         handleLogin() {
             axios.get('/sanctum/csrf-cookie').then(response => {
                 axios.post('/login', this.formData).then(response => {
-                    axios.post('/api/sanctum/token', this.formData).then(response => {
-                        localStorage.setItem('token', response);
+                    axios.post('/sanctum/token', this.formData).then(response => {
+                        localStorage.setItem('token', response.data);
                         window.location.href = '/home';
                     }).catch(error => {
                         console.log(error);
@@ -57,6 +60,10 @@ export default {
                 });;
             });
         },
+    },
+
+    mounted() {
+        this.csrfToken = document.querySelector('meta[name="csrf-token"]').content
     },
 
 }

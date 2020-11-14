@@ -5,4 +5,8 @@ export default class Auth {
         }
         return false;
     }
+
+    getToken() {
+        return localStorage.getItem('token');
+    }
 }

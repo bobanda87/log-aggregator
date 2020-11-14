@@ -1937,14 +1937,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 var auth = new _services_auth__WEBPACK_IMPORTED_MODULE_0__["default"]();
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      csrfToken: null,
       formData: {
-        email: '',
-        password: ''
+        email: 'demoUser@test.com',
+        password: 'SomePass123!'
       }
     };
   },
@@ -1954,8 +1957,11 @@ var auth = new _services_auth__WEBPACK_IMPORTED_MODULE_0__["default"]();
 
       axios.get('/sanctum/csrf-cookie').then(function (response) {
         axios.post('/login', _this.formData).then(function (response) {
-          axios.post('/api/sanctum/token', _this.formData).then(function (response) {
-            localStorage.setItem('token', response);
+          axios.post('/sanctum/token', _this.formData).then(function (response) {
+            console.log(response);
+            console.log(response.data);
+            alert("token response");
+            localStorage.setItem('token', response.data);
             window.location.href = '/home';
           })["catch"](function (error) {
             console.log(error);
@@ -1968,6 +1974,9 @@ var auth = new _services_auth__WEBPACK_IMPORTED_MODULE_0__["default"]();
         ;
       });
     }
+  },
+  mounted: function mounted() {
+    this.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
   }
 });
 
@@ -1984,6 +1993,7 @@ var auth = new _services_auth__WEBPACK_IMPORTED_MODULE_0__["default"]();
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/auth */ "./resources/js/services/auth.js");
 //
 //
 //
@@ -2019,6 +2029,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+var auth = new _services_auth__WEBPACK_IMPORTED_MODULE_1__["default"]();
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2027,10 +2039,18 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    getHeader: function getHeader() {
+      var config = {
+        headers: {
+          Authorization: 'Bearer ' + auth.getToken()
+        }
+      };
+      return config;
+    },
     fetchAllLogs: function fetchAllLogs() {
       var _this = this;
 
-      axios.get("api/logs").then(function (response) {
+      axios.get("api/logs", this.getHeader()).then(function (response) {
         _this.logs = response.data;
       });
     },
@@ -2038,7 +2058,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios.get("api/logs/search?search=" + this.search + "&page=" + page).then(function (response) {
+      axios.get("api/logs/search?search=" + this.search + "&page=" + page, this.getHeader()).then(function (response) {
         console.log(response);
         _this2.logs = response.data;
       });
@@ -2046,7 +2066,7 @@ __webpack_require__.r(__webpack_exports__);
     searchLogs: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function () {
       var _this3 = this;
 
-      axios.get("api/logs/search?search=" + this.search).then(function (response) {
+      axios.get("api/logs/search?search=" + this.search, this.getHeader()).then(function (response) {
         console.log(response);
         _this3.logs = response.data;
       });
@@ -38255,6 +38275,11 @@ var render = function() {
         }
       },
       [
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrfToken }
+        }),
+        _vm._v(" "),
         _c("div", { staticClass: "form-group row" }, [
           _c(
             "label",
@@ -50866,6 +50891,11 @@ var Auth = /*#__PURE__*/function () {
       }
 
       return false;
+    }
+  }, {
+    key: "getToken",
+    value: function getToken() {
+      return localStorage.getItem('token');
     }
   }]);
 
