@@ -47,7 +47,7 @@ export default {
         handleLogin() {
             axios.get('/sanctum/csrf-cookie').then(response => {
                 axios.post('/login', this.formData).then(response => {
-                    axios.post('/sanctum/token', this.formData).then(response => {
+                    axios.post('/api/sanctum/token', this.formData).then(response => {
                         localStorage.setItem('token', response.data);
                         window.location.href = '/home';
                     }).catch(error => {

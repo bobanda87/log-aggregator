@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::middleware('auth:web')->get('/home', 'HomeController@index')->name('home');
-Route::middleware('auth:web')->get('/', 'HomeController@index');
-
+Route::middleware('auth:web')->get('/home', [HomeController::class, 'index']);
+Route::middleware('auth:web')->get('/', [HomeController::class, 'index']);

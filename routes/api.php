@@ -15,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/sanctum/token', [LoginController::class, 'tokenAuthentication']);
-
 Route::middleware('auth:sanctum')->post('/logs', [LogAggregatorAPIController::class, 'create']);
 Route::middleware('auth:sanctum')->get('/logs', [LogAggregatorAPIController::class, 'index']);
 Route::middleware('auth:sanctum')->get('/logs/search', [LogAggregatorAPIController::class, 'search']);
 
+Route::post('sanctum/token', [LoginController::class, 'tokenAuthentication']);

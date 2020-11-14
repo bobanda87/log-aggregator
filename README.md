@@ -42,7 +42,24 @@ curl -X POST http://127.0.0.1:8000/api/logs \
 
 ### Notice
 
-For the purpose of the easier testing, I have left the registration open, so it is easier to register user and test the application.
+For the test purposes, I have left the registration open, so it is easier to register user and test the application.
+
+For the test purposes, the application is deployed on `http://128.199.62.163/`
+
+The following calls include pre-made credentials (just for the purpose of the test) 
+```
+curl -X POST http://128.199.62.163/api/sanctum/token \
+--header 'Content-Type: application/json' \
+--data-raw '{"email": "demoUser@test.com", "password": "SomePass123!"}'
+```
+
+Add token that you received as a response in the next call
+```
+curl -X POST http://128.199.62.163/api/logs \
+--header 'Content-Type: application/json' \
+--data-raw '{"log": "Demo log message"}' \
+--header 'Authorization: Bearer XXXXX'   
+```
 
 ### Further development
 
