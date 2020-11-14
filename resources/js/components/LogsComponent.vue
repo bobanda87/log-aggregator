@@ -3,8 +3,8 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-md-2">
-                    <input type="text" @keyup="searchLogs" placeholder="Search" v-model="search" class="form-control form-control-sm">
+                <div class="col-md-6">
+                    <input type="text" @keyup="searchLogs" placeholder="Search" v-model="search" class="form-control">
                 </div>
             </div>
         </div>
@@ -45,14 +45,12 @@ export default {
     },
     methods: {
         fetchAllLogs() {
-            console.log("fetchAllLogs");
             axios.get("api/logs").then( response => {
                 this.logs = response.data;
             });
         },
 
         fetchLogsByPage(page = 1) {
-            console.log("fetchLogsByPage");
             axios.get("api/logs/search?search=" + this.search + "&page=" + page)
                 .then((response) => {
                     console.log(response);
@@ -61,7 +59,6 @@ export default {
         },
 
         searchLogs:_.debounce(function() {
-            console.log("searchLogs");
             axios.get("api/logs/search?search=" + this.search)
                 .then((response) => {
                     console.log(response);
@@ -70,7 +67,7 @@ export default {
         }),
     },
 
-    created(){
+    created() {
         this.fetchAllLogs();
     },
 
