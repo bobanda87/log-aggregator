@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth:web')->get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth:web')->get('/', 'HomeController@index');
-Route::middleware('auth:web')->get('logs', 'LogAggregatorController@index');
 
